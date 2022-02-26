@@ -8,14 +8,15 @@
                     <h5>Import Jobs</h5>
                 </div>
                 <div class="card-body">
-                    {{ Form::open(['route'=>'jobs.import', 'method' => 'post']) }}
-                    <div class="row mb-3">
-                        <div class="form-group col-4">
-                            <label for="file">File</label>
-                            {!! Form::file('file',['class'=>'form-control']); !!}
-                        </div>
+                    {{ Form::open(['route'=>'jobs.import', 'method' => 'post', 'class' => 'row', 'files' => true]) }}
+                    <div class="col-md-4">
+                        <label for="file">File</label>
+                        {!! Form::file('file',['class'=>'form-control ']); !!}
+                        @error('file')
+                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="col-4">
+                    <div class="col-12 mt-3">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
                     {{ Form::close() }}

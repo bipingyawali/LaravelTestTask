@@ -8,11 +8,14 @@
                     <h5>Import Candidates</h5>
                 </div>
                 <div class="card-body">
-                    {{ Form::open(['route'=>'candidates.import', 'method' => 'post']) }}
+                    {{ Form::open(['route'=>'candidates.import', 'method' => 'post', 'files' => true]) }}
                     <div class="row mb-3">
                         <div class="form-group col-4">
                             <label for="file">File</label>
                             {!! Form::file('file',['class'=>'form-control']); !!}
+                            @error('file')
+                            <div class="invalid-feedback" style="display: block">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-4">

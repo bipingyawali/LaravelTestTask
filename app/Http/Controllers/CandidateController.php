@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CandidateRequest;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -22,7 +23,7 @@ class CandidateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function import(Request $request)
+    public function import(CandidateRequest $request)
     {
 
     }

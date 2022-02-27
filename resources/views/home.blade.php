@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-9">
-                            <h5>List</h5>
+                            <h5>List of Candidate</h5>
                         </div>
                         <div class="col-md-3 float-right">
                             <a href="{{ route('candidates.index') }}" class="btn btn-primary">Import Candidates</a>
@@ -23,19 +23,27 @@
                                 <tr>
                                     <th scope="col">S.N.</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">email</th>
+                                    <th scope="col">Email</th>
                                     <th scope="col">Jobs</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @forelse($candidates as $i => $candidate)
+                                    <tr>
+                                        <td>{{ $i+1 }}</td>
+                                        <td>{!! $candidate->first_name !!} {!! $candidate->last_name !!}</td>
+                                        <td>{!! $candidate->email !!}</td>
+                                        <td>
+                                            @foreach($candidate->jobs as $job)
+                                                <li>{!! $job->job_title !!} | {!! $job->company_name !!} | {!! $job->start_date !!} | {!! $job->end_date !!}</li>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4">No data available.</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>

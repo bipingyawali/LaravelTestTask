@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JobRequest;
-use Illuminate\Http\Request;
+use App\Imports\JobImport;
+use App\Models\Job;
+use Laracasts\Flash\Flash;
 
 class JobController extends Controller
 {
@@ -14,17 +16,23 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('job.index');
+        $data['jobs'] = Job::all();
+        return view('job.index',$data);
     }
 
     /**
-     * import data.
+     * import job's data.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function import(JobRequest $request)
     {
+        $file = $request->file('file')->store('import');
 
+        $import = new JobImport();
+        $import->import($file);
+        Flash::success('Job import successfully.');
+        return back();
     }
 }

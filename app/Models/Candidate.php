@@ -12,15 +12,26 @@ class Candidate extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email'
     ];
+
+    /**
+     * Get the full name of the candidate.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return preg_replace('/\s+/', ' ', $this->first_name . ' ' . $this->last_name);
+    }
 
     /**
      * Get the jobs for the candidate.
      */
     public function jobs()
     {
-        return $this->hasMany(Job::class);
+        return $this->hasMany(Job::class)->orderBy('start_date','desc');
     }
 }

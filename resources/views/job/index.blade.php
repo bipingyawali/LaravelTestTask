@@ -8,13 +8,18 @@
                     <h5>Import Jobs</h5>
                 </div>
                 <div class="card-body">
+                    @include('flash::message')
+                    @if(isset($errors) && $errors->any())
+                        <div class="alert alert-danger">
+                            @foreach($errors->all() as $error)
+                                {!! $error !!} <br>
+                            @endforeach
+                        </div>
+                    @endif
                     {{ Form::open(['route'=>'jobs.import', 'method' => 'post', 'class' => 'row', 'files' => true]) }}
                     <div class="col-md-4">
                         <label for="file">File</label>
                         {!! Form::file('file',['class'=>'form-control ']); !!}
-                        @error('file')
-                        <div class="invalid-feedback" style="display: block">{{ $message }}</div>
-                        @enderror
                     </div>
                     <div class="col-12 mt-3">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -50,15 +55,21 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @forelse($jobs as $i => $job)
+                                    <tr>
+                                        <td>{!! $i+1 !!}</td>
+                                        <td>{!! $job->candidate->full_name !!}</td>
+                                        <td>{!! $job->job_title !!}</td>
+                                        <td>{!! $job->company_name !!}</td>
+                                        <td>{!! $job->start_date !!}</td>
+                                        <td>{!! $job->end_date !!}</td>
+                                        <td></td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7">No data available.</td>
+                                    </tr>
+                                @endforelse
                                 </tbody>
                             </table>
                         </div>

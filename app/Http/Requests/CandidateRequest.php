@@ -24,7 +24,7 @@ class CandidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required | mimes:csv,xlsx,xls'
+            'file' => 'required'
         ];
     }
 }

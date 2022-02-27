@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $data['candidates'] = Candidate::all();
+        return view('home',$data);
     }
 }

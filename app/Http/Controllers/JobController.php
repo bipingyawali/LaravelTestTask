@@ -5,28 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobRequest;
 use App\Imports\JobImport;
 use App\Models\Job;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Laracasts\Flash\Flash;
 
 class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $data['jobs'] = Job::all();
         return view('job.index',$data);
     }
 
     /**
-     * import job's data.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Import job's data.
+     * @param JobRequest $request
+     * @return RedirectResponse
      */
-    public function import(JobRequest $request)
+    public function import(JobRequest $request): RedirectResponse
     {
         $file = $request->file('file')->store('import');
 
